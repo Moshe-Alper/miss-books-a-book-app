@@ -1,0 +1,20 @@
+:root {
+  --clr1: rgb(128, 141, 142);
+  /* Battleship gray */
+  --clr2: rgb(118, 108, 127);
+  /* Chinese Violet */
+
+  --clr1bg: rgb(2, 27, 52);
+  /* Dark blue */
+  --clr1bg-light: rgb(163, 165, 195);
+  /* Cool gray */
+  --clr2bg: rgb(169, 210, 213);
+  /* Light blue */
+  --clr2bg-light: rgb(173, 232, 234);
+  /* Slightly lighter variant of Light blue */
+
+  --gray1: rgb(240, 240, 240);
+  --gray2: rgb(155, 155, 155);
+  --gray3: rgb(44, 44, 44);
+
+}
