@@ -13,7 +13,8 @@ export const bookService = {
     getEmptyBook,
     getNextBookId,
     getFilterBy,
-    setFilterBy
+    setFilterBy,
+    demoBooks //delete later
 }
 
 function query() {
