@@ -7,6 +7,10 @@ export function BookList({ books }) {
             {books.map(book => (
                 <li key={book.id}>
                     <BookPreview book={book} />
+                    <section>
+                        <button>Details</button>
+                        <button>Edit</button>
+                    </section>
                 </li>
             ))}
         </ul>

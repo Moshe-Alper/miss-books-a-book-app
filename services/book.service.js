@@ -17,17 +17,20 @@ export const bookService = {
 }
 
 function query() {
-    return storageService.query(BOOK_KEY)
-        .then(books => {
-            if (gFilterBy.txt) {
-                const regex = new RegExp(gFilterBy.txt, 'i')
-                books = books.filter(book => regex.test(book.vendor))
-            }
-            if (gFilterBy.minSpeed) {
-                books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
-            }
-            return books
-        })
+    return new Promise((resolve, reject) => {
+        resolve(demoBooks())
+    })
+    // return storageService.query(BOOK_KEY)
+    //     .then(books => {
+    //         if (gFilterBy.txt) {
+    //             const regex = new RegExp(gFilterBy.txt, 'i')
+    //             books = books.filter(book => regex.test(book.vendor))
+    //         }
+    //         if (gFilterBy.minSpeed) {
+    //             books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
+    //         }
+    //         return books
+    //     })
 }
 
 function get(bookId) {
@@ -86,3 +89,35 @@ function getNextBookId(bookId) {
 //     book.id = utilService.makeId()
 //     return book
 // }
+
+function demoBooks() {
+    return [
+        {
+            id: "OXeMG8wNskc",
+            title: "Secret Histroy",
+            listPrice: {
+                amount: 109,
+                currencyCode: "EUR",
+                isOnSale: false
+            }
+        },
+        {
+            id: "JUbMihTkSrb",
+            title: "Firestarter",
+            listPrice: {
+                amount: 50,
+                currencyCode: "USD",
+                isOnSale: true
+            }
+        },
+        {
+            id: "5zRrFSHbxMb",
+            title: "Lord of the Rings",
+            listPrice: {
+                amount: 78,
+                currencyCode: "NIS",
+                isOnSale: false
+            }
+        }
+    ]
+}
