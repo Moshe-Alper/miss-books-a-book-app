@@ -3,7 +3,7 @@ import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
 var gFilterBy = { txt: '', minSpeed: 0 }
-_createBooks()
+// _createBooks()
 
 export const bookService = {
     query,
@@ -13,8 +13,7 @@ export const bookService = {
     getEmptyBook,
     getNextBookId,
     getFilterBy,
-    setFilterBy,
-    demoBooks //delete later
+    setFilterBy
 }
 
 function query() {
@@ -70,20 +69,20 @@ function getNextBookId(bookId) {
         })
 }
 
-function _createBooks() {
-    let books = utilService.loadFromStorage(BOOK_KEY)
-    if (!books || !books.length) {
-        books = []
-        books.push(_createBook('audu', 300))
-        books.push(_createBook('fiak', 120))
-        books.push(_createBook('subali', 100))
-        books.push(_createBook('mitsu', 150))
-        utilService.saveToStorage(BOOK_KEY, books)
-    }
-}
+// function _createBooks() {
+//     let books = utilService.loadFromStorage(BOOK_KEY)
+//     if (!books || !books.length) {
+//         books = []
+//         books.push(_createBook('audu', 300))
+//         books.push(_createBook('fiak', 120))
+//         books.push(_createBook('subali', 100))
+//         books.push(_createBook('mitsu', 150))
+//         utilService.saveToStorage(BOOK_KEY, books)
+//     }
+// }
 
-function _createBook(vendor, maxSpeed = 250) {
-    const book = getEmptyBook(vendor, maxSpeed)
-    book.id = utilService.makeId()
-    return book
-}
+// function _createBook(vendor, maxSpeed = 250) {
+//     const book = getEmptyBook(vendor, maxSpeed)
+//     book.id = utilService.makeId()
+//     return book
+// }

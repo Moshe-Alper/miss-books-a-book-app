@@ -1,5 +1,6 @@
 const { useEffect, useState } = React
 
+import { BookList } from "../assets/style/cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 
 
@@ -45,20 +46,10 @@ export function BookIndex() {
         setBooks(books)
     }, [])
 
+    if (!books) return <p>Loading...</p>
     return (
         <section className="book-index">
-            <h1>Book Index</h1>
-            {books ? (
-                <ul>
-                    {books.map(book => (
-                        <li key={book.id}>
-                            {book.title} - {book.listPrice.amount} {book.listPrice.currencyCode}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Loading...</p>
-            )}
+                <BookList books={books}/>
         </section>
     )
 }
