@@ -1,7 +1,7 @@
 const { useEffect, useState } = React
 
 import { BookDetails } from "./BookDetails.jsx"
-import { BookList } from "../assets/style/cmps/BookList.jsx"
+import { BookList } from "../cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookFilter } from "./BookFilter.jsx"
 
@@ -29,13 +29,13 @@ export function BookIndex() {
     if (!books) return <p>Loading...</p>
     return (
         <section className="book-index">
-            {!selectedBookId &&
-                <React.Fragment>
+            {selectedBookId
+                ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />
+                : <React.Fragment>
                     <BookFilter />
                     <BookList onSelectedBookId={onSelectedBookId} books={books} />
                 </React.Fragment>
             }
-            {selectedBookId && <BookDetails bookId={selectedBookId} />}
         </section>
     )
 }

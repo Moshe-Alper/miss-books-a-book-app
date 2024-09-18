@@ -34,7 +34,18 @@ function query() {
 }
 
 function get(bookId) {
-    return storageService.get(BOOK_KEY, bookId)
+    return new Promise((resolve, reject) => {
+        const books = demoBooks()
+        const book = books.find(book => book.id === bookId)
+
+        if (book) {
+            resolve(book)
+        } else {
+            reject(`no id`)
+        }
+    })
+
+    // return storageService.get(BOOK_KEY, bookId)
 }
 
 function remove(bookId) {
