@@ -2,7 +2,7 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-var gFilterBy = { txt: '', minSpeed: 0 }
+var gFilterBy = { txt: '', minPrice: 0 }
 // _createBooks()
 
 export const bookService = {
@@ -24,10 +24,10 @@ function query() {
     //     .then(books => {
     //         if (gFilterBy.txt) {
     //             const regex = new RegExp(gFilterBy.txt, 'i')
-    //             books = books.filter(book => regex.test(book.vendor))
+    //             books = books.filter(book => regex.test(book.name))
     //         }
-    //         if (gFilterBy.minSpeed) {
-    //             books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
+    //         if (gFilterBy.minPrice) {
+    //             books = books.filter(book => book.maxPrice >= gFilterBy.minPrice)
     //         }
     //         return books
     //     })
@@ -60,8 +60,8 @@ function save(book) {
     }
 }
 
-function getEmptyBook(vendor = '', maxSpeed = 0) {
-    return { id: '', vendor, maxSpeed }
+function getEmptyBook(name = '', maxPrice = 0) {
+    return { id: '', name, maxPrice }
 }
 
 function getFilterBy() {
@@ -70,7 +70,7 @@ function getFilterBy() {
 
 function setFilterBy(filterBy = {}) {
     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-    if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
+    if (filterBy.minPrice !== undefined) gFilterBy.minPrice = filterBy.minPrice
     return gFilterBy
 }
 
@@ -95,8 +95,8 @@ function getNextBookId(bookId) {
 //     }
 // }
 
-// function _createBook(vendor, maxSpeed = 250) {
-//     const book = getEmptyBook(vendor, maxSpeed)
+// function _createBook(name, maxPrice = 250) {
+//     const book = getEmptyBook(name, maxPrice)
 //     book.id = utilService.makeId()
 //     return book
 // }

@@ -1,14 +1,35 @@
-export function BookFilter() {
+const { useState } = React
+
+export function BookFilter({ filterBy }) {
+
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+
+    function handleTxtChange(ev) {
+        const value = ev.target.value
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, txt: value }))
+    }
+
+    function handleMinPriceChange(ev) {
+        const value = ev.target.value
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, minPrice: value }))
+    }
+
+
+    const { txt, minPrice } = filterByToEdit
+
+    // function onSubmit() {
+
+    // }
 
     return (
         <section className="book-filter">
             <h2>Filter</h2>
-            <form>
+            <form >
                 <label htmlFor="txt">Name</label>
-                <input type="text"  id="txt" />
+                <input value={txt} onChange={handleTxtChange} type="text" id="txt" />
 
-                <label htmlFor="price">Price</label>
-                <input type="number" id="price" />
+                <label htmlFor="minPrice">Price</label>
+                <input value={minPrice} onChange={handleMinPriceChange} type="number" id="minPrice" />
 
                 <button>Submit</button>
             </form>

@@ -1,6 +1,6 @@
 .book-filter {
     background-color: var(--clr2bg);
-    padding-inline-end: 1em;
+    padding-inline-start: 1em;
     margin-block-end: 1em;
 }
 
@@ -13,4 +13,10 @@
 .book-filter form button {
     background-color: var(--clr2);
     margin-inline: 0
+}
+
+.book-filter input {
+    background-color: lightcyan;
+    border: 1em;
+    border-radius: 4px;
 }
