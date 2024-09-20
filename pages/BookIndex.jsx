@@ -4,6 +4,7 @@ import { BookDetails } from "./BookDetails.jsx"
 import { BookList } from "../cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookFilter } from "./BookFilter.jsx"
+import { AppLoader } from "../cmps/AppLoader.jsx"
 
 export function BookIndex() {
 
@@ -13,7 +14,7 @@ export function BookIndex() {
 
 
     useEffect(() => {
-        loadBooks()
+        // loadBooks()
     }, [filterBy])
 
     async function loadBooks() {
@@ -32,7 +33,7 @@ export function BookIndex() {
         setFilterBy({ ...filterBy })
     }
 
-    if (!books) return <p>Loading...</p>
+    if (!books) return <AppLoader />
     return (
         <section className="book-index">
             {selectedBookId
