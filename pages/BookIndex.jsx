@@ -14,7 +14,8 @@ export function BookIndex() {
 
 
     useEffect(() => {
-        // loadBooks()
+        loadBooks()
+        
     }, [filterBy])
 
     async function loadBooks() {
@@ -33,7 +34,7 @@ export function BookIndex() {
         setFilterBy({ ...filterBy })
     }
 
-    if (!books) return <AppLoader />
+    if (!books) return <p>Loading...</p>
     return (
         <section className="book-index">
             {selectedBookId

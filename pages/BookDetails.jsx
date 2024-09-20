@@ -1,5 +1,6 @@
 const { useEffect, useState } = React
 
+import { AppLoader } from "../cmps/AppLoader.jsx"
 import { bookService } from "../services/book.service.js"
 
 export function BookDetails({ bookId, onBack }) {
@@ -18,16 +19,22 @@ export function BookDetails({ bookId, onBack }) {
             })
     }
 
-    if (!book) return <div>Loading...</div>
-    const { title, listPrice } = book
-    const { amount, currencyCode } = listPrice
+    if (!book) return <AppLoader />
+    
+    const { title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, listPrice } = book
+    const { amount, currencyCode, isOnSale } = listPrice
 
     return (
         <section className="book-details">
-        <h2>Title: {title}</h2>
-        <h2>Price: {amount}</h2>
-        <h2>Currency: {currencyCode}</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur necessitatibus magni eligendi qui aut suscipit tempora ipsa quia atque quas asperiores temporibus, sunt similique obcaecati veniam, enim reiciendis. Dolor, vel.</p>
+            <h2>Title: {title}</h2>
+            <h3>Subtitle: {subtitle}</h3>
+            <h3>Authors: {authors.join(', ')}</h3>
+            <h4>Published Date: {publishedDate}</h4>
+            <h4>Page Count: {pageCount}</h4>
+            <h4>Categories: {categories.join(', ')}</h4>
+            <p>{description}</p>
+            <img src={thumbnail} alt={`${title} cover`} />
+            <h2>Price: {amount} {currencyCode} {isOnSale ? '(On Sale)' : ''}</h2>
             <button onClick={onBack}>Back</button>
         </section>
     )

@@ -1,11 +1,17 @@
 export function BookPreview({ book }) {
-        const { title, listPrice } = book
+
+    function getDefaultUrl(ev) {
+        ev.target.src='https://via.placeholder.com/150'
+    }
+
+        const { title, listPrice, thumbnail } = book
         const { amount, currencyCode } = listPrice
+
     return (
         <article className="book-preview">
             <h2>Title: {title}</h2>
-            <h3>Price: {amount}</h3>
-            <h4>Currency: {currencyCode}</h4>
+            <h3>Price: {amount} {currencyCode}</h3>
+            <img src={thumbnail}  onError={getDefaultUrl} alt="Book cover" />
         </article>
     )
 }
