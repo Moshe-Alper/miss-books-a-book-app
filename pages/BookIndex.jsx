@@ -34,7 +34,7 @@ export function BookIndex() {
         setFilterBy({ ...filterBy })
     }
 
-    if (!books) return <p>Loading...</p>
+    if (!books) return <AppLoader />
     return (
         <section className="book-index">
             {selectedBookId
