@@ -2,7 +2,6 @@
   background-color: var(--clr1);
   color: var(--clr1bg);
   padding-block: .75em;
-
 }
 
 .app-header section:first-child {
@@ -15,6 +14,10 @@
 .app-header .app-nav {
   display: flex;
   gap: 15px;
+}
+
+.app-header .app-nav a {
+  cursor: pointer;
 }
 
 @media(max-width: 720px) {
