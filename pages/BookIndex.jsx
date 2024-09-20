@@ -15,14 +15,14 @@ export function BookIndex() {
 
     useEffect(() => {
         loadBooks()
-        
+
     }, [filterBy])
 
     async function loadBooks() {
         bookService.query(filterBy)
             .then(setBooks)
             .catch(err => {
-                console.log('Problem getting books:', err)
+                console.error('Problem getting books:', err)
             })
     }
 
@@ -34,14 +34,36 @@ export function BookIndex() {
         setFilterBy({ ...filterBy })
     }
 
+    function onRemoveBook(bookId) {
+        const isConfirmed = confirm('Are you sure?')
+        if (!isConfirmed) return
+        bookService.remove(bookId)
+            .then(() => {
+                setBooks(prev => [...prev.filte(book => book.id !== bookId)])
+                    .catch(err => {
+                        console.error('Problem deleting books:', err)
+                    })
+            })
+    }
+
     if (!books) return <AppLoader />
     return (
         <section className="book-index">
             {selectedBookId
-                ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />
+                ? <BookDetails
+                    bookId={selectedBookId}
+                    onBack={() => setSelectedBookId(null)}
+                />
                 : <React.Fragment>
-                    <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-                    <BookList onSelectedBookId={onSelectedBookId} books={books} />
+                    <BookFilter
+                        filterBy={filterBy}
+                        onSetFilterBy={onSetFilterBy}
+                    />
+                    <BookList  
+                     books={books} 
+                     onSelectedBookId={onSelectedBookId} 
+                     onRemoveBook={onRemoveBook}
+                     />
                 </React.Fragment>
             }
         </section>
