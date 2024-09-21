@@ -6,7 +6,8 @@ export const utilService = {
     saveToStorage,
     padNum,
     getDayName,
-    getMonthName
+    getMonthName,
+    getCurrencySign
 }
 
 function makeId(length = 6) {
@@ -57,4 +58,25 @@ function getMonthName(date) {
         'July', 'August', 'September', 'October', 'November', 'December'
     ]
     return monthNames[date.getMonth()]
+}
+
+function getCurrencySign(currencyCode) {
+    const currencyMap = {
+        'USD': '$',   // US Dollar
+        'EUR': '€',   // Euro
+        'GBP': '£',   // British Pound
+        'JPY': '¥',   // Japanese Yen
+        'AUD': 'A$',  // Australian Dollar
+        'CAD': 'C$',  // Canadian Dollar
+        'CHF': 'CHF', // Swiss Franc
+        'CNY': '¥',   // Chinese Yuan
+        'INR': '₹',   // Indian Rupee
+        'RUB': '₽',   // Russian Ruble
+        'ILS': '₪',   // Israeli Shekel
+        'KRW': '₩',   // South Korean Won
+        'BRL': 'R$',  // Brazilian Real
+        'MXN': 'MX$', // Mexican Peso
+    }
+
+    return currencyMap[currencyCode] || currencyCode
 }

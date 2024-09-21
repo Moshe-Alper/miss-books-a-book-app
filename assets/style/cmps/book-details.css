@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: flex-start;
     background-color: var(--clr1);
+    padding: 1em;
 }
 .book-details h1 {
     color: var(--clr2);
@@ -18,6 +19,9 @@
     margin: auto;
 }
 
+.book-details .bold {
+    font-weight: bold;
+}
 .book-details .book-specs {
     color: blue;
 }

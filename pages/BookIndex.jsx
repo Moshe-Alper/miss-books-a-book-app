@@ -10,7 +10,7 @@ import { BookEdit } from "./BookEdit.jsx"
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState('OXeMG8wNskc')
+    const [selectedBookId, setSelectedBookId] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getFilterBy())
     const [isEdit, setIsEdit] = useState(false)
 
@@ -58,7 +58,7 @@ export function BookIndex() {
         if (!isConfirmed) return
         bookService.remove(bookId)
             .then(() => {
-                setBooks(prev => [...prev.filte(book => book.id !== bookId)])
+                setBooks(prev => [...prev.filter(book => book.id !== bookId)])
                     .catch(err => {
                         console.error('Problem deleting books:', err)
                     })

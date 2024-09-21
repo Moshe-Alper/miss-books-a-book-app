@@ -1,13 +1,15 @@
 const { useEffect, useState } = React
 
+import { utilService } from "../services/util.service.js"
 import { AppLoader } from "../cmps/AppLoader.jsx"
 import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
+
 export function BookDetails({ bookId, onBack, onEditBook }) {
 
     const [book, setBook] = useState(null)
-    const [bookSpecs, setBookSpecs] = useState({ level: '', vintage: '', priceClass: '' })
+    const [bookSpecs, setBookSpecs] = useState({ level: '', vintageStatus: '', priceClass: '' })
 
     useEffect(() => {
         loadBook()
@@ -27,7 +29,7 @@ export function BookDetails({ bookId, onBack, onEditBook }) {
 
         const bookSpecsFromBook = {
             level: getReadingLevel(book.pageCount),
-            vintage: getVintageStatus(book.publishedDate),
+            vintageStatus: getVintageStatus(book.publishedDate),
             priceClass: getPriceClass(book.listPrice.amount),
         }
         setBookSpecs(prev => ({ ...prev, ...bookSpecsFromBook }))
@@ -75,18 +77,29 @@ export function BookDetails({ bookId, onBack, onEditBook }) {
 
     return (
         <section className="book-details">
-            <h2>Title: {title}</h2>
-            <h3>Subtitle: {subtitle}</h3>
-            <h3>Authors: {authors.join(', ')}</h3>
-            <h4>Published Date: {publishedDate} <span className="book-specs">{bookSpecs.vintage}</span></h4>
-            <h4>Page Count: {pageCount} <span className="book-specs">{bookSpecs.level}</span></h4>
-            <h4>Categories: {categories.join(', ')}</h4>
-            <LongTxt txt={description} length={4} />
             <img src={thumbnail} onError={getDefaultUrl} alt={`${title} cover`} />
-            <h2>Price: <span className={bookSpecs.priceClass}>{amount} {currencyCode}</span></h2>
-            {isOnSale && <div className="on-sale-sign">On Sale!</div>}
+            <p><span className="bold">Title:</span> <span>{title}</span></p>
+            <p><span className="bold">Subtitle:</span> <span>{subtitle}</span></p>
+            <p><span className="bold">Authors:</span> <span>{authors.join(', ')}</span></p>
+            <p>
+                <span className="bold">Published Date:</span> <span>{publishedDate} </span> 
+                <span className="book-specs">{bookSpecs.vintageStatus}</span>
+            </p>
+            <p>
+                <span className="bold">Page Count:</span> <span>{pageCount} </span> 
+                <span className="book-specs">{bookSpecs.level}</span>
+            </p>
+            <p><span className="bold">Categories:</span> <span>{categories.join(', ')}</span></p>
+            <LongTxt txt={description} length={4} />
+            <p>
+                <span className="bold">Price:</span> 
+                <span className={bookSpecs.priceClass}>{amount} {utilService.getCurrencySign(currencyCode)}</span>
+            </p>
+            {isOnSale && <h2 className="on-sale-sign">On Sale!</h2>}
+            <section className="details-actions">
             <button onClick={onBack}>Back</button>
             <button onClick={() => onEditBook(bookId)}>Edit</button>
+            </section>
         </section>
     )
 }
