@@ -10,7 +10,7 @@ import { BookEdit } from "./BookEdit.jsx"
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState(null)
+    const [selectedBookId, setSelectedBookId] = useState('OXeMG8wNskc')
     const [filterBy, setFilterBy] = useState(bookService.getFilterBy())
     const [isEdit, setIsEdit] = useState(false)
 

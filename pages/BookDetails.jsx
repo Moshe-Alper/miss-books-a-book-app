@@ -2,6 +2,7 @@ const { useEffect, useState } = React
 
 import { AppLoader } from "../cmps/AppLoader.jsx"
 import { bookService } from "../services/book.service.js"
+import { LongTxt } from "../cmps/LongTxt.jsx"
 
 export function BookDetails({ bookId, onBack, onEditBook }) {
 
@@ -80,7 +81,7 @@ export function BookDetails({ bookId, onBack, onEditBook }) {
             <h4>Published Date: {publishedDate} <span className="book-specs">{bookSpecs.vintage}</span></h4>
             <h4>Page Count: {pageCount} <span className="book-specs">{bookSpecs.level}</span></h4>
             <h4>Categories: {categories.join(', ')}</h4>
-            <p>{description}</p>
+            <LongTxt txt={description} length={4} />
             <img src={thumbnail} onError={getDefaultUrl} alt={`${title} cover`} />
             <h2>Price: <span className={bookSpecs.priceClass}>{amount} {currencyCode}</span></h2>
             {isOnSale && <div className="on-sale-sign">On Sale!</div>}
