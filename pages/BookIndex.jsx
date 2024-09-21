@@ -40,6 +40,19 @@ export function BookIndex() {
         setIsEdit(true)
     }
 
+    function onSaveBook(bookToSave) {
+        bookService.save(bookToSave)
+            .then(() => {
+                setIsEdit(false)
+                setSelectedBookId(null)
+                loadBooks()
+            })
+            .catch(err => {
+                console.log('Problem saving book:', err)
+            })
+    }
+
+
     function onRemoveBook(bookId) {
         const isConfirmed = confirm('Are you sure?')
         if (!isConfirmed) return
@@ -56,31 +69,32 @@ export function BookIndex() {
 
     return (
         <section className="book-index">
-            {isEdit && selectedBookId 
-            ? (
-                <BookEdit 
-                bookId={selectedBookId} 
-                onBack={() => setSelectedBookId(null)}
-                />
-            ) : selectedBookId ? (
-                <BookDetails
-                    bookId={selectedBookId}
-                    onBack={() => setSelectedBookId(null)}
-                    onEditBook={onEditBook}
-                />
-            ) : (
-                <React.Fragment>
-                    <BookFilter
-                        filterBy={filterBy}
-                        onSetFilterBy={onSetFilterBy}
+            {isEdit && selectedBookId
+                ? (
+                    <BookEdit
+                        bookId={selectedBookId}
+                        onBack={() => setSelectedBookId(null)}
+                        onSaveBook={onSaveBook}
                     />
-                    <BookList
-                        books={books}
-                        onSelectedBookId={onSelectedBookId}
-                        onRemoveBook={onRemoveBook}
+                ) : selectedBookId ? (
+                    <BookDetails
+                        bookId={selectedBookId}
+                        onBack={() => setSelectedBookId(null)}
+                        onEditBook={onEditBook}
                     />
-                </React.Fragment>
-            )}
+                ) : (
+                    <React.Fragment>
+                        <BookFilter
+                            filterBy={filterBy}
+                            onSetFilterBy={onSetFilterBy}
+                        />
+                        <BookList
+                            books={books}
+                            onSelectedBookId={onSelectedBookId}
+                            onRemoveBook={onRemoveBook}
+                        />
+                    </React.Fragment>
+                )}
         </section>
     )
 }

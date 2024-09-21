@@ -15,47 +15,34 @@ export const bookService = {
     getFilterBy,
     setFilterBy
 }
-// later remove argument
 function query(filterBy = {}) {
     return new Promise((resolve, reject) => {
         let books = demoBooks()
 
         if (filterBy.txt) {
-            const regex = new RegExp(filterBy.txt, 'i')
+            const regex = new RegExp(filterBy.txt, 'i');
             books = books.filter(book => regex.test(book.title))
         }
         if (filterBy.minPrice) {
-            books = books.filter(book => book.listPrice.amount >= filterBy.minPrice)
+            const minPriceValue = Number(filterBy.minPrice);
+            books = books.filter(book => book.listPrice.amount >= minPriceValue)
         }
 
         resolve(books)
     })
-    // return storageService.query(BOOK_KEY)
-    //     .then(books => {
-    //         if (gFilterBy.txt) {
-    //             const regex = new RegExp(gFilterBy.txt, 'i')
-    //             books = books.filter(book => regex.test(book.name))
-    //         }
-    //         if (gFilterBy.minPrice) {
-    //             books = books.filter(book => book.maxPrice >= gFilterBy.minPrice)
-    //         }
-    //         return books
-    //     })
 }
 
 function get(bookId) {
     return new Promise((resolve, reject) => {
-        const books = demoBooks()
-        const book = books.find(book => book.id === bookId)
+        const books = demoBooks();
+        const book = books.find(book => book.id === bookId);
 
         if (book) {
-            resolve(book)
+            resolve(book);
         } else {
-            reject(`no id`)
+            reject(`No book found with id: ${bookId}`);
         }
     })
-
-    // return storageService.get(BOOK_KEY, bookId)
 }
 
 function remove(bookId) {

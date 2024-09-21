@@ -82,7 +82,7 @@ export function BookDetails({ bookId, onBack, onEditBook }) {
             <h4>Categories: {categories.join(', ')}</h4>
             <p>{description}</p>
             <img src={thumbnail} onError={getDefaultUrl} alt={`${title} cover`} />
-            <h2>Price: <span className={getPriceClass(bookSpecs.priceClass)}>{amount} {currencyCode}</span> {isOnSale ? '(On Sale)' : ''}</h2>
+            <h2>Price: <span className={bookSpecs.priceClass}>{amount} {currencyCode}</span></h2>
             {isOnSale && <div className="on-sale-sign">On Sale!</div>}
             <button onClick={onBack}>Back</button>
             <button onClick={() => onEditBook(bookId)}>Edit</button>
