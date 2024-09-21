@@ -17,3 +17,15 @@
     display: block;
     margin: auto;
 }
+
+.book-details .book-specs {
+    color: blue;
+}
+
+.book-details .price-red {
+    color: red;
+}
+
+.book-details .price-green {
+    color: green;
+}
