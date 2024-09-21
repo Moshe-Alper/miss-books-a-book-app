@@ -3,7 +3,7 @@ const { useEffect, useState } = React
 import { AppLoader } from "../cmps/AppLoader.jsx"
 import { bookService } from "../services/book.service.js"
 
-export function BookDetails({ bookId, onBack }) {
+export function BookDetails({ bookId, onBack, onEditBook }) {
 
     const [book, setBook] = useState(null)
     const [bookSpecs, setBookSpecs] = useState({ level: '', vintage: '', priceClass: '' })
@@ -85,6 +85,7 @@ export function BookDetails({ bookId, onBack }) {
             <h2>Price: <span className={getPriceClass(bookSpecs.priceClass)}>{amount} {currencyCode}</span> {isOnSale ? '(On Sale)' : ''}</h2>
             {isOnSale && <div className="on-sale-sign">On Sale!</div>}
             <button onClick={onBack}>Back</button>
+            <button onClick={() => onEditBook(bookId)}>Edit</button>
         </section>
     )
 }
