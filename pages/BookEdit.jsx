@@ -59,17 +59,11 @@ export function BookEdit({ bookId, onSaveBook, onBack }) {
 
     function onSubmit(ev) {
         ev.preventDefault()
-
-
-        console.log(ev.target.checkValidity())
-
-        //  console.log(Object.fromEntries(new FormData(ev.target)))
+        // console.log(ev.target.checkValidity())
         onSaveBook(bookToEdit)
     }
 
-    // : add a loader
-    // :form validation form onChange
-    // : from entries
+
     if (!bookToEdit) return <AppLoader />
 
     return (
