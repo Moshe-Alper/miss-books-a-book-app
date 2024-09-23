@@ -20,13 +20,14 @@ export function BookIndex() {
 
     }, [filterBy])
 
-    async function loadBooks() {
+    function loadBooks() {
         bookService.query(filterBy)
             .then(setBooks)
             .catch(err => {
-                console.error('Problem getting books:', err)
+                console.log('Problems getting books:', err)
             })
     }
+
 
     function onSelectedBookId(bookId) {
         setSelectedBookId(bookId)
@@ -58,12 +59,13 @@ export function BookIndex() {
         if (!isConfirmed) return
         bookService.remove(bookId)
             .then(() => {
-                setBooks(prev => [...prev.filter(book => book.id !== bookId)])
-                    .catch(err => {
-                        console.error('Problem deleting books:', err)
-                    })
+                setBooks(books => books.filter(book => book.id !== bookId))
+            })
+            .catch(err => {
+                console.log('Problems removing book:', err)
             })
     }
+
 
     if (!books) return <AppLoader />
 
