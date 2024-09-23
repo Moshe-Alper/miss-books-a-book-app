@@ -12,9 +12,11 @@
 @import 'cmps/app-header.css';
 @import 'cmps/user-msg.css';
 @import 'cmps/app-loader.css';
+@import 'cmps/not-found.css';
 
 
 /* Pages */
+@import 'cmps/about.css';
 @import 'cmps/books.css';
 @import 'cmps/book-details.css';
 @import 'cmps/book-filter.css';

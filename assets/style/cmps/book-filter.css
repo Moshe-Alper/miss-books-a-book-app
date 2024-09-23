@@ -6,7 +6,7 @@
 
 .book-filter form {
     display: grid;
-    grid-template-columns: 100px 200px;
+    grid-template-columns: 100px 1fr;
     gap: .5em;
 }
 
@@ -16,6 +16,9 @@
 }
 
 .book-filter input {
+    box-sizing: border-box;
+    margin-inline-end: 1em;
+
     background-color: lightcyan;
     border: 1em;
     border-radius: 4px;

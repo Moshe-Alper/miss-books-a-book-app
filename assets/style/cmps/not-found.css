@@ -1,0 +1,11 @@
+.not-found-container {
+    text-align: center;
+}
+
+.not-found {
+    color: red;
+    text-align: center;
+    margin: 5rem auto;  
+    padding: 5rem;  
+    width: fit-content;
+}
