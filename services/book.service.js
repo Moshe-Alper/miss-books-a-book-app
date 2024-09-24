@@ -49,8 +49,8 @@ function save(book) {
     }
 }
 
-function getEmptyBook(name = '', maxPrice = 0) {
-    return { id: '', name, maxPrice }
+function getEmptyBook(title = '', price = '') {
+    return { id: '', title, price }
 }
 
 function getFilterBy() {

@@ -1,6 +1,8 @@
-.book-edit {
+
+.book-edit form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: var(--clr1);
+    padding: 1em;
 }

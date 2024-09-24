@@ -3,6 +3,11 @@
     font-family: Arial, sans-serif;
 }
 
+.index-actions {
+    text-align: center;
+    margin-block-end: 1em;
+}
+
 .book-list {
     list-style-type: none;
     padding: 0;
