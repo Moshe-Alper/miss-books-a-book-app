@@ -1,5 +1,5 @@
 const { useEffect, useState } = React
-const {useParams, useNavigate} = ReactRouterDOM
+const {useParams, useNavigate, Link} = ReactRouterDOM
 
 import { utilService } from "../services/util.service.js"
 import { AppLoader } from "../cmps/AppLoader.jsx"
@@ -17,7 +17,7 @@ export function BookDetails() {
 
     useEffect(() => {
         loadBook()
-    }, [])
+    }, [params.bookId])
 
     function loadBook() {
         bookService.get(params.bookId)
@@ -99,7 +99,7 @@ function onBack() {
             <p><span className="bold">Categories:</span> <span>{categories.join(', ')}</span></p>
             <LongTxt txt={description} length={4} />
             <p>
-                <span className="bold">Price:</span> 
+                <span className="bold">Price: </span> 
                 <span className={bookSpecs.priceClass}>{amount} {utilService.getCurrencySign(currencyCode)}</span>
             </p>
             {isOnSale && <h2 className="on-sale-sign">On Sale!</h2>}
@@ -107,6 +107,8 @@ function onBack() {
             <button onClick={onBack}>Back</button>
             <button onClick={() => onEditBook(bookId)}>Edit</button>
             </section>
+            <button ><Link to={`/bookIndex/${book.prevBookId}`}>Prev Book</Link></button>
+            <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
         </section>
     )
 }
