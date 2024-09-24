@@ -8,6 +8,7 @@ import { Team } from './cmps/Team.jsx'
 import { Vision } from './cmps/Vision.jsx'
 import { BookIndex } from './pages/BookIndex.jsx'
 import { HomePage } from './pages/HomePage.jsx'
+import { BookDetails } from './pages/BookDetails.jsx'
 
 export function App() {
 
@@ -18,15 +19,17 @@ export function App() {
 
                 <main className="container">
                     <Routes>
-                        <Route path='/' element={<Navigate to="/homePage" />} />
-                        <Route path='/home' element={<Navigate to="/homePage" />} />
-                        <Route path='/homePage' element={<HomePage />} />
-                        <Route path='/AboutUs' element={<AboutUs />} >
-                            <Route path='/AboutUs/Team' element={<Team />} /> {/* Nested route */}
-                            <Route path='/AboutUs/Vision' element={<Vision />} /> {/* Nested route */}
+                        <Route path="/" element={<Navigate to="/homePage" />} />
+                        <Route path="/home" element={<Navigate to="/homePage" />} />
+                        <Route path="/homePage" element={<HomePage />} />
+                        <Route path="/AboutUs" element={<AboutUs />} >
+                            <Route path="/AboutUs/Team" element={<Team />} /> {/* Nested route */}
+                            <Route path="/AboutUs/Vision" element={<Vision />} /> {/* Nested route */}
                         </Route>
-                        <Route path='/BookIndex' element={<BookIndex />} />
-                        <Route path='*' element={<NotFound />} />
+                        <Route path="/BookIndex" element={<BookIndex />} />
+                        <Route path="/BookIndex/:bookId" element={<BookDetails />} />
+
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
             </section>

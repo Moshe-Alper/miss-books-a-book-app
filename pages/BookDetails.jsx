@@ -1,4 +1,5 @@
 const { useEffect, useState } = React
+const {useParams, useNavigate} = ReactRouterDOM
 
 import { utilService } from "../services/util.service.js"
 import { AppLoader } from "../cmps/AppLoader.jsx"
@@ -6,27 +7,33 @@ import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
 
-export function BookDetails({ bookId, onBack, onEditBook }) {
+export function BookDetails() {
 
     const [book, setBook] = useState(null)
     const [bookSpecs, setBookSpecs] = useState({ level: '', vintageStatus: '', priceClass: '' })
+    const params = useParams()
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         loadBook()
     }, [])
 
     function loadBook() {
-        bookService.get(bookId)
+        bookService.get(params.bookId)
             .then(setBook)
             .catch(err => {
                 console.log('Problem getting book:', err)
             })
     }
 
+function onBack() {
+    navigate('/bookIndex')
+}
+
 
     useEffect(() => {
         if (!book) return
-
         const bookSpecsFromBook = {
             level: getReadingLevel(book.pageCount),
             vintageStatus: getVintageStatus(book.publishedDate),

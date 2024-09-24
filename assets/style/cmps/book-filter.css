@@ -18,7 +18,7 @@
 .book-filter input {
     box-sizing: border-box;
     margin-inline-end: 1em;
-
+    width: 15em;
     background-color: lightcyan;
     border: 1em;
     border-radius: 4px;

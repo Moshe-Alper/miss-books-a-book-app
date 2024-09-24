@@ -71,32 +71,16 @@ export function BookIndex() {
 
     return (
         <section className="book-index">
-            {isEdit && selectedBookId
-                ? (
-                    <BookEdit
-                        bookId={selectedBookId}
-                        onBack={() => setSelectedBookId(null)}
-                        onSaveBook={onSaveBook}
-                    />
-                ) : selectedBookId ? (
-                    <BookDetails
-                        bookId={selectedBookId}
-                        onBack={() => setSelectedBookId(null)}
-                        onEditBook={onEditBook}
-                    />
-                ) : (
-                    <React.Fragment>
-                        <BookFilter
-                            filterBy={filterBy}
-                            onSetFilterBy={onSetFilterBy}
-                        />
-                        <BookList
-                            books={books}
-                            onSelectedBookId={onSelectedBookId}
-                            onRemoveBook={onRemoveBook}
-                        />
-                    </React.Fragment>
-                )}
+
+            <BookFilter
+                filterBy={filterBy}
+                onSetFilterBy={onSetFilterBy}
+            />
+            <BookList
+                books={books}
+                onRemoveBook={onRemoveBook}
+            />
+
         </section>
     )
 }
