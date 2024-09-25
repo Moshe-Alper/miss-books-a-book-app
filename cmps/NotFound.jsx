@@ -11,7 +11,7 @@ export function NotFound() {
             <h1>Oops! Page Not Found</h1>
             <h2>We can't seem to find the page you're looking for.</h2>
             </section>
-            <Link to='/'>Back</Link>
+            <Link to='/' className="btn">Back</Link>
         </section>
 
     )

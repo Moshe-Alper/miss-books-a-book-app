@@ -105,7 +105,7 @@ function onBack() {
             {isOnSale && <h2 className="on-sale-sign">On Sale!</h2>}
             <section className="details-actions">
             <button onClick={onBack}>Back</button>
-            <button>Edit</button>
+            <button><Link to={`/BookIndex/edit/${book.id}`}>Edit</Link></button>
             </section>
             <button ><Link to={`/bookIndex/${book.prevBookId}`}>Prev Book</Link></button>
             <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
