@@ -2,17 +2,15 @@ const { useEffect, useState } = React
 const { Link } = ReactRouterDOM
 
 
-import { BookDetails } from "./BookDetails.jsx"
 import { BookList } from "../cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookFilter } from "./BookFilter.jsx"
 import { AppLoader } from "../cmps/AppLoader.jsx"
-import { BookEdit } from "./BookEdit.jsx"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getFilterBy())
 
 
@@ -30,30 +28,9 @@ export function BookIndex() {
     }
 
 
-    function onSelectedBookId(bookId) {
-        setSelectedBookId(bookId)
-    }
-
     function onSetFilterBy(filterBy) {
         setFilterBy({ ...filterBy })
     }
-
-    function onEditBook() {
-        setIsEdit(true)
-    }
-
-    function onSaveBook(bookToSave) {
-        bookService.save(bookToSave)
-            .then(() => {
-                setIsEdit(false)
-                setSelectedBookId(null)
-                loadBooks()
-            })
-            .catch(err => {
-                console.log('Problem saving book:', err)
-            })
-    }
-
 
     function onRemoveBook(bookId) {
         const isConfirmed = confirm('Are you sure?')
@@ -61,12 +38,13 @@ export function BookIndex() {
         bookService.remove(bookId)
             .then(() => {
                 setBooks(books => books.filter(book => book.id !== bookId))
+                showSuccessMsg('Book removed successfully')
             })
             .catch(err => {
                 console.log('Problems removing book:', err)
+                showErrorMsg(`Problems removing book ${bookId}`)
             })
     }
-
 
     if (!books) return <AppLoader />
 
