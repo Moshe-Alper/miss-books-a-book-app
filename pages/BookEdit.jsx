@@ -31,7 +31,7 @@ export function BookEdit() {
         switch (target.type) {
             case 'number':
             case 'range':
-                value = +value
+                value = target.value === '' ? '' : +value
                 break;
 
             case 'checkbox':
