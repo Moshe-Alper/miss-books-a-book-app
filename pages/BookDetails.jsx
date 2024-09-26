@@ -5,12 +5,18 @@ import { utilService } from "../services/util.service.js"
 import { AppLoader } from "../cmps/AppLoader.jsx"
 import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { AddReview } from "../cmps/AddReview.jsx"
+import { ReviewList } from "../cmps/ReviewList.jsx"
 
 
 export function BookDetails() {
 
     const [book, setBook] = useState(null)
     const [bookSpecs, setBookSpecs] = useState({ level: '', vintageStatus: '', priceClass: '' })
+    const [isShowReviewModal, setIsShowReviewModal] = useState(null)
+    const [isLoadingReview, setIsLoadingReview] = useState(false)
+
+
     const params = useParams()
     const navigate = useNavigate()
 
@@ -77,6 +83,23 @@ function onBack() {
         ev.target.src = 'https://via.placeholder.com/150'
     }
 
+    function onToggleReviewModal() {
+        console.log('toggle:')
+        setIsShowReviewModal((prevIsReviewModal) => !prevIsReviewModal)
+    }
+
+    function onSaveReview(reviewToAdd) {
+        setIsLoadingReview(true)
+        bookService.saveReview(book.id, reviewToAdd)
+            .then((review => {
+                const reviews = [review, ...book.reviews]
+                setBook({ ...book, reviews })
+            }))
+            .catch(() => showErrorMsg(`Review to ${book.title} Failed!`))
+            .finally(() => setIsLoadingReview(false))
+    }
+
+
     if (!book) return <AppLoader />
 
     const { title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, listPrice } = book
@@ -103,12 +126,21 @@ function onBack() {
                 <span className={bookSpecs.priceClass}>{amount} {utilService.getCurrencySign(currencyCode)}</span>
             </p>
             {isOnSale && <h2 className="on-sale-sign">On Sale!</h2>}
+
             <section className="details-actions">
+
             <button onClick={onBack}>Back</button>
             <button><Link to={`/BookIndex/edit/${book.id}`}>Edit</Link></button>
             </section>
             <button ><Link to={`/bookIndex/${book.prevBookId}`}>Prev Book</Link></button>
             <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
+
+            <button onClick={onToggleReviewModal}>Add Review</button>
+            {isShowReviewModal && 
+            <AddReview saveReview={onSaveReview}/>}
+            <div className='review-container'>
+                    <ReviewList />        
+            </div>
         </section>
     )
 }
