@@ -1,5 +1,5 @@
 const { useEffect, useState } = React
-const {useParams, useNavigate, Link} = ReactRouterDOM
+const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { utilService } from "../services/util.service.js"
 import { AppLoader } from "../cmps/AppLoader.jsx"
@@ -34,9 +34,9 @@ export function BookDetails() {
             })
     }
 
-function onBack() {
-    navigate('/bookIndex')
-}
+    function onBack() {
+        navigate('/bookIndex')
+    }
 
     useEffect(() => {
         if (!book) return
@@ -88,10 +88,7 @@ function onBack() {
     }
 
     function onSaveReview(reviewToAdd) {
-        console.log('reviewToADD:', reviewToAdd)
         setIsLoadingReview(true)
-        console.log('reviewToADD:', reviewToAdd)
-        console.log('book.id:', book.id)
         bookService.saveReview(book.id, reviewToAdd)
             .then((review => {
                 const reviews = [review, ...book.reviews]
@@ -119,35 +116,37 @@ function onBack() {
 
     return (
         <section className="book-details">
+            <div className="book-details-nav">
+            <button ><Link to={`/bookIndex/${book.prevBookId}`}>Prev Book</Link></button>
+            <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
+            </div>
             <img src={thumbnail} onError={getDefaultUrl} alt={`${title} cover`} />
             <p><span className="bold">Title:</span> <span>{title}</span></p>
             <p><span className="bold">Subtitle:</span> <span>{subtitle}</span></p>
             <p><span className="bold">Authors:</span> <span>{authors.join(', ')}</span></p>
             <p>
-                <span className="bold">Published Date:</span> <span>{publishedDate} </span> 
+                <span className="bold">Published Date:</span> <span>{publishedDate} </span>
                 <span className="book-specs">{bookSpecs.vintageStatus}</span>
             </p>
             <p>
-                <span className="bold">Page Count:</span> <span>{pageCount} </span> 
+                <span className="bold">Page Count:</span> <span>{pageCount} </span>
                 <span className="book-specs">{bookSpecs.level}</span>
             </p>
             <p><span className="bold">Categories:</span> <span>{categories.join(', ')}</span></p>
             <LongTxt txt={description} length={4} />
             <p>
-                <span className="bold">Price: </span> 
+                <span className="bold">Price: </span>
                 <span className={bookSpecs.priceClass}>{amount} {utilService.getCurrencySign(currencyCode)}</span>
             </p>
             {isOnSale && <h2 className="on-sale-sign">On Sale!</h2>}
 
             <section className="details-actions">
 
-            <button onClick={onBack}>Back</button>
-            <button><Link to={`/BookIndex/edit/${book.id}`}>Edit</Link></button>
-            </section>
-            <button ><Link to={`/bookIndex/${book.prevBookId}`}>Prev Book</Link></button>
-            <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
-
+                <button onClick={onBack}>Back</button>
+                <button><Link to={`/BookIndex/edit/${book.id}`}>Edit</Link></button>
             <button onClick={onToggleReviewModal}>Add Review</button>
+            </section>
+
             {isShowReviewModal && (
                 <AddReview
                     toggleReview={onToggleReviewModal}
@@ -156,10 +155,10 @@ function onBack() {
             )}
             <div className='review-container'>
                 {!isLoadingReview
-                    ?<ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} /> 
+                    ? <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
                     : <AppLoader />
                 }
-                           
+
             </div>
         </section>
     )

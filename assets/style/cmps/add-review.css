@@ -45,3 +45,39 @@
     padding: 5px 7px;
     margin: 0;
 }
+
+
+.review-container {
+    width: 90%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.review-details {
+    position: relative;
+    border: 2px solid #a1a1a1;
+    border-radius: 10px;
+    margin-block-start: 10px;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 1.3rem;
+}
+
+.review-details h5 {
+    color: #a1a1a1;
+}
+
+.review-details .btn-remove-review {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    margin: 5px;
+    font-size: 1rem;
+    border: 2px solid #bb8082;
+    border-radius: 50%;
+}
+
+.review-container p {
+    max-width: 90%;
+    word-wrap: break-word;
+}
