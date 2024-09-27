@@ -13,7 +13,7 @@ export function AppHeader() {
     return (
         <header className="app-header full main-layout">
             <section>
-                <h1>Miss Books</h1>
+                <h1 className="logo">Miss Books</h1>
                 <nav className="app-nav">
                     {links.map((link, idx) => {
                         return <NavLink to={link.href} key={idx} title={link.title}>{link.title}</NavLink>

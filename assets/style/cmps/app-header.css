@@ -25,6 +25,10 @@ a.active {
   text-decoration: underline;
 }
 
+.logo {
+  font-family: raleway-regular;
+}
+
 @media(max-width: 720px) {
   .app-header {
     color: var(--clr2bg);

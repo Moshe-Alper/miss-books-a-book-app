@@ -1,2 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+@font-face {
+    font-family: playfair_display, serif;
+    src: url(/fonts/playfair_display/PlayfairDisplay-Bold.ttf);
+}
+
+@font-face {
+    font-family: raleway-regular, sans-serif;
+    src: url(/fonts/Raleway/Raleway-Regular.ttf);
+}
