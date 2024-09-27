@@ -13,8 +13,8 @@ export function BookDetails() {
 
     const [book, setBook] = useState(null)
     const [bookSpecs, setBookSpecs] = useState({ level: '', vintageStatus: '', priceClass: '' })
-    const [isShowReviewModal, setIsShowReviewModal] = useState(null)
     const [isLoadingReview, setIsLoadingReview] = useState(false)
+    const [isShowReviewModal, setIsShowReviewModal] = useState(null)
 
 
     const params = useParams()
@@ -84,18 +84,30 @@ function onBack() {
     }
 
     function onToggleReviewModal() {
-        console.log('toggle:')
         setIsShowReviewModal((prevIsReviewModal) => !prevIsReviewModal)
     }
 
     function onSaveReview(reviewToAdd) {
+        console.log('reviewToADD:', reviewToAdd)
         setIsLoadingReview(true)
+        console.log('reviewToADD:', reviewToAdd)
+        console.log('book.id:', book.id)
         bookService.saveReview(book.id, reviewToAdd)
             .then((review => {
                 const reviews = [review, ...book.reviews]
                 setBook({ ...book, reviews })
             }))
             .catch(() => showErrorMsg(`Review to ${book.title} Failed!`))
+            .finally(() => setIsLoadingReview(false))
+    }
+
+    function onRemoveReview(reviewId) {
+        setIsLoadingReview(true)
+        bookService.removeReview(book.id, reviewId)
+            .then(() => {
+                const filteredReviews = book.reviews.filter(review => review.id !== reviewId)
+                setBook({ ...book, reviews: filteredReviews })
+            })
             .finally(() => setIsLoadingReview(false))
     }
 
@@ -136,10 +148,18 @@ function onBack() {
             <button ><Link to={`/bookIndex/${book.nextBookId}`}>Next Book</Link></button>
 
             <button onClick={onToggleReviewModal}>Add Review</button>
-            {isShowReviewModal && 
-            <AddReview saveReview={onSaveReview}/>}
+            {isShowReviewModal && (
+                <AddReview
+                    toggleReview={onToggleReviewModal}
+                    saveReview={onSaveReview}
+                />
+            )}
             <div className='review-container'>
-                    <ReviewList />        
+                {!isLoadingReview
+                    ?<ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} /> 
+                    : <AppLoader />
+                }
+                           
             </div>
         </section>
     )

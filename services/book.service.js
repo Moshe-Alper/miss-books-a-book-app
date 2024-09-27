@@ -13,7 +13,7 @@ export const bookService = {
     getEmptyBook,
     getNextBookId,
     getFilterBy,
-    // setFilterBy,
+    setFilterBy,
     saveReview,
     removeReview,
     getEmptyReview
@@ -114,41 +114,41 @@ function _setNextPrevBookId(book) {
     })
 }
 
-function _createBooks() {
-    let books = utilService.loadFromStorage(BOOK_KEY)
-    if (!books || !books.length) {
-        books = []
-        const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
-        for (let i = 0; i < 20; i++) {
-            const book = {
-                id: utilService.makeId(),
-                title: utilService.makeLorem(2),
-                subtitle: utilService.makeLorem(4),
-                authors: [
-                    utilService.makeLorem(1)
-                ],
-                publishedDate: utilService.getRandomIntInclusive(1950, 2024),
-                description: utilService.makeLorem(20),
-                pageCount: utilService.getRandomIntInclusive(20, 600),
-                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-                thumbnail: `/assets/img/${i+1}.jpg`,
-                language: "en",
-                listPrice: {
-                    amount: utilService.getRandomIntInclusive(80, 500),
-                    currencyCode: "EUR",
-                    isOnSale: Math.random() > 0.7
-                },
-                reviews: []
-            }
-            books.push(book)
-        }
-        utilService.saveToStorage(BOOK_KEY, books)
-    }
-}
-
 function _createReview(reviewToSave) {
     return {
         id: utilService.makeId(),
         ...reviewToSave,
     }
+}
+
+function _createBooks() {
+    const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+    const books = utilService.loadFromStorage(BOOK_KEY) || []
+
+    if (books && books.length) return
+
+    for (let i = 0; i < 20; i++) {
+        const book = {
+            id: utilService.makeId(),
+            title: utilService.makeLorem(2),
+            subtitle: utilService.makeLorem(4),
+            authors: [
+                utilService.makeLorem(1)
+            ],
+            publishedDate: utilService.getRandomIntInclusive(1950, 2024),
+            description: utilService.makeLorem(20),
+            pageCount: utilService.getRandomIntInclusive(20, 600),
+            categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+            thumbnail: `/assets/booksImages/${i + 1}.jpg`,
+            language: "en",
+            listPrice: {
+                amount: utilService.getRandomIntInclusive(80, 500),
+                currencyCode: "EUR",
+                isOnSale: Math.random() > 0.7
+            },
+            reviews: []
+        }
+        books.push(book)
+    }
+    utilService.saveToStorage(BOOK_KEY, books)
 }
