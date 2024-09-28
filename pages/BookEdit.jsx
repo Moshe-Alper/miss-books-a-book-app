@@ -2,13 +2,14 @@ const { useNavigate, useParams } = ReactRouterDOM
 
 
 import { AppLoader } from "../cmps/AppLoader.jsx";
+import { BookAdd } from "../cmps/BookAdd.jsx";
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
 
 export function BookEdit() {
-
     const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+
     const { bookId } = useParams()
     const navigate = useNavigate()
 
@@ -70,6 +71,7 @@ export function BookEdit() {
     return (
         <section className="book-edit">
             <h1>{bookToEdit.id ? 'Edit' : 'Add'} Book</h1>
+            {!bookToEdit.id && <BookAdd />} 
             <form onSubmit={onSaveBook}>
                 <label htmlFor="title">Title:</label>
                 <input value={title} onChange={handleChange} type="text" name="title" id="title" />
