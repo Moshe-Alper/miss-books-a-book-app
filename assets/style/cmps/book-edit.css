@@ -1,8 +1,22 @@
+.book-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--clr1);
+    padding: 1em;
+}
 
 .book-edit form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: var(--clr1);
+    padding: 1em;
+}
+
+.book-edit .add-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 1em;
 }

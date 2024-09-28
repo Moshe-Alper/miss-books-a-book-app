@@ -3,6 +3,8 @@ import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
 var gFilterBy = { txt: '', minPrice: '' }
+const CACHE_STORAGE_KEY = 'googleBooksCache'
+const gCache = utilService.loadFromStorage(CACHE_STORAGE_KEY) || {}
 _createBooks()
 
 export const bookService = {
@@ -17,6 +19,7 @@ export const bookService = {
     saveReview,
     removeReview,
     getEmptyReview,
+    getGoogleBooks,
     addGoogleBook,
 }
 
@@ -108,6 +111,52 @@ function getNextBookId(bookId) {
 
 function addGoogleBook(book) {
     return storageService.post(BOOK_KEY, book, false)
+}
+
+function getGoogleBooks(bookName) {
+    if (bookName === '') return Promise.resolve()
+    const googleBooks = gCache[bookName]
+    if (googleBooks) {
+        console.log('data from storage...', googleBooks)
+        return Promise.resolve(googleBooks)
+    }
+
+    const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`
+    return axios.get(url)
+        .then(res => {
+            const data = res.data.items
+            console.log('data from network...', data)
+            const books = _formatGoogleBooks(data)
+            gCache[bookName] = books
+            utilService.saveToStorage(CACHE_STORAGE_KEY, gCache)
+            return books
+        })
+}
+
+// Local Functions
+
+function _formatGoogleBooks(googleBooks) {
+    return googleBooks.map(googleBook => {
+        const { volumeInfo } = googleBook
+        const book = {
+            id: googleBook.id,
+            title: volumeInfo.title,
+            description: volumeInfo.description,
+            pageCount: volumeInfo.pageCount,
+            authors: volumeInfo.authors,
+            categories: volumeInfo.categories,
+            publishedDate: volumeInfo.publishedDate,
+            language: volumeInfo.language,
+            listPrice: {
+                amount: utilService.getRandomIntInclusive(80, 500),
+                currencyCode: "EUR",
+                isOnSale: Math.random() > 0.7
+            },
+            reviews: []
+        }
+        if (volumeInfo.imageLinks) book.thumbnail = volumeInfo.imageLinks.thumbnail
+        return book
+    })
 }
 
 function _setNextPrevBookId(book) {

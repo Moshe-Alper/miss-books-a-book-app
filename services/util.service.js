@@ -7,7 +7,8 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
-    getCurrencySign
+    getCurrencySign,
+    debounce,
 }
 
 function makeId(length = 6) {
@@ -79,4 +80,14 @@ function getCurrencySign(currencyCode) {
     }
 
     return currencyMap[currencyCode] || currencyCode
+}
+
+function debounce(callback, wait) {
+    let timeoutId = null
+    return (...args) => {
+        window.clearTimeout(timeoutId)
+        timeoutId = window.setTimeout(() => {
+            callback(...args)
+        }, wait)
+    }
 }
