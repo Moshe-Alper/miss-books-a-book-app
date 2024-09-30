@@ -9,6 +9,7 @@ export const utilService = {
     getMonthName,
     getCurrencySign,
     debounce,
+    getTruthyValues,
 }
 
 function makeId(length = 6) {
@@ -90,4 +91,15 @@ function debounce(callback, wait) {
             callback(...args)
         }, wait)
     }
+}
+
+export function getTruthyValues(obj) {
+    const newObj = {}
+    for (const key in obj) {
+        const value = obj[key]
+        if (value || value === 0) {
+            newObj[key] = value
+        }
+    }
+    return newObj
 }

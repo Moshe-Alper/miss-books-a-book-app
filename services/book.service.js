@@ -2,7 +2,6 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-var gFilterBy = { txt: '', minPrice: '' }
 const CACHE_STORAGE_KEY = 'googleBooksCache'
 const gCache = utilService.loadFromStorage(CACHE_STORAGE_KEY) || {}
 _createBooks()
@@ -14,8 +13,8 @@ export const bookService = {
     save,
     getEmptyBook,
     getNextBookId,
-    getFilterBy,
-    setFilterBy,
+    getDefaultFilter,
+    getFilterFromSearchParams,
     saveReview,
     removeReview,
     getEmptyReview,
@@ -61,14 +60,20 @@ function getEmptyBook(title = '', price = 0) {
     return { id: '', title, price }
 }
 
-function getFilterBy() {
-    return { ...gFilterBy }
+function getDefaultFilter() {
+    return {
+        txt: '',
+        minPrice: '',
+    }
 }
 
-function setFilterBy(filterBy = {}) {
-    if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-    if (filterBy.minPrice !== undefined) gFilterBy.minPrice = filterBy.minPrice
-    return gFilterBy
+function getFilterFromSearchParams(searchParams) {
+    const txt = searchParams.get('txt') || ''
+    const minPrice = searchParams.get('minPrice') || ''
+    return {
+        txt,
+        minPrice
+    }
 }
 
 
