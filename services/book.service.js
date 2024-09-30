@@ -20,6 +20,7 @@ export const bookService = {
     getEmptyReview,
     getGoogleBooks,
     addGoogleBook,
+    getCategoryStats,
 }
 
 function query(filterBy = {}) {
@@ -138,7 +139,30 @@ function getGoogleBooks(bookName) {
         })
 }
 
+function getCategoryStats() {
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            const bookCountByCategoryMap = _getBookCountByCategoryMap(books)
+            const data = Object.keys(bookCountByCategoryMap)
+                .map(categories =>
+                ({
+                    category: categories,
+                    value: Math.round((bookCountByCategoryMap[categories] / books.length) * 100)
+                }))
+            return data
+        })
+}
+
 // Local Functions
+
+function _getBookCountByCategoryMap(books) {
+    const bookCountByCategoryMap = books.reduce((map, book) => {
+        if (!map[book.categories]) map[book.categories] = 0
+        map[book.categories]++
+        return map
+    }, {})
+    return bookCountByCategoryMap
+}
 
 function _formatGoogleBooks(googleBooks) {
     return googleBooks.map(googleBook => {

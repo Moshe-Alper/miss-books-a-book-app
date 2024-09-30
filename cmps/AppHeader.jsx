@@ -7,6 +7,7 @@ export function AppHeader() {
     const links = [
         { title: 'Home', href: '/homePage' },
         { title: 'About', href: '/aboutUs' },
+        { title: 'Dashboard', href: '/dashboard' },
         { title: 'Book', href: '/bookIndex' }
     ]
     

@@ -17,6 +17,7 @@ export function BookIndex() {
 
 
     useEffect(() => {
+        console.log('books:', books)
         loadBooks()
         setSearchPrms(getTruthyValues(filterBy))
     }, [filterBy])
@@ -64,7 +65,6 @@ export function BookIndex() {
                 books={books}
                 onRemoveBook={onRemoveBook}
             />
-
         </section>
     )
 }

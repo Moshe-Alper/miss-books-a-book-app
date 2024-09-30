@@ -11,6 +11,7 @@ import { BookEdit } from './pages/BookEdit.jsx'
 import { HomePage } from './pages/HomePage.jsx'
 import { BookDetails } from './pages/BookDetails.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
+import { Dashboard } from './pages/Dashboard.jsx'
 
 export function App() {
 
@@ -29,6 +30,7 @@ export function App() {
                             <Route path="/AboutUs/AboutGoal" element={<AboutGoal />} /> {/* Nested route */}
                         </Route>
                         <Route path="/BookIndex" element={<BookIndex />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/BookIndex/:bookId" element={<BookDetails />} />
                         <Route path="/BookIndex/edit" element={<BookEdit />} />
                         <Route path="/BookIndex/edit/:bookId" element={<BookEdit />} />
