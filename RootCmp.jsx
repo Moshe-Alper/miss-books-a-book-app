@@ -22,9 +22,9 @@ export function App() {
 
                 <main className="container">
                     <Routes>
-                        <Route path="/" element={<Navigate to="/homePage" />} />
-                        <Route path="/home" element={<Navigate to="/homePage" />} />
-                        <Route path="/homePage" element={<HomePage />} />
+                        <Route path="/" element={<Navigate to="/BookIndex" />} />
+                        <Route path="/home" element={<Navigate to="/BookIndex" />} />
+                        <Route path="/homePage" element={<BookIndex />} />
                         <Route path="/AboutUs" element={<AboutUs />} >
                             <Route path="/AboutUs/AboutTeam" element={<AboutTeam />} /> {/* Nested route */}
                             <Route path="/AboutUs/AboutGoal" element={<AboutGoal />} /> {/* Nested route */}
